@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     addGoodHabitButton.addEventListener("click", function () {
       console.log("add good habit button clicked")
       goodHabitModal.classList.add("open");
-            const habit_name = prompt("Enter habit name");
+      
       if (!habit_name) return;
 
       fetch("/addGoodHabit", {
@@ -41,14 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  if (saveModalButton) {
+  if (saveGoodModalButton) {
     // TODO: Needs to add to habits table
     saveGoodModalButton.addEventListener("click", function () {
       goodHabitModal.classList.remove("open")
     })
   }
 
-  if (closeModalButton) {
+  if (closeGoodModalButton) {
     closeGoodModalButton.addEventListener("click", function () {
       goodHabitModal.classList.remove("open");
     })
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (addBadHabitButton) {
     addBadHabitButton.addEventListener("click", function () {
       badHabitModal.classList.add("open")
-      
+
       if (!habit_name) return;
 
       fetch("/addBadHabit", {
