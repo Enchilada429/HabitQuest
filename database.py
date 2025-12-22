@@ -55,9 +55,23 @@ def create_account(mongodb_client: MongoClient, email: str, password: str, displ
     })
 
 
-def create_habit(mongodb_client: MongoClient, description: str, is_good_habit: bool, account_username: str) -> None:
-    """Create a single habit with description, whether it is good or bad, and the account to link it to."""
-    pass
+def create_habit(mongodb_client: MongoClient, description: str, habit_type: str, email: str) -> None:
+    """Create a single habit with description, whether it is a good or bad habit, and the email to link it to."""
+
+    account_id = get_id_using_email(mongodb_client, email)
+
+    if not account_id:
+        raise ValueError("Email does not link to a valid account.")
+    if habit_type.lower() not in ["good", "bad"]:
+        raise ValueError("Habit type must be 'good' or 'bad'.")
+
+    habit_collection = mongodb_client["HabitQuest"]["habit"]
+
+    habit_collection.insert_one({
+        "description": description,
+        "habit_type": habit_type.lower(),
+        "account_id": account_id
+    })
 
 
 if __name__ == "__main__":
@@ -67,4 +81,4 @@ if __name__ == "__main__":
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
 
-    create_account(client, "seven@gmail.com", "lll", "yoyo")
+    create_habit(client, "Farting in public", "bad", "seven@gmail.com")
