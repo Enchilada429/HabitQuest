@@ -15,4 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Welcome! This is your starting point.");
     });
   }
+
+  const addGoodHabitButton = document.getElementById("addGoodHabit");
+
+  if (addGoodHabitButton) {
+    addGoodHabitButton.addEventListener("click", function () {
+      
+    });
+  }
 });
