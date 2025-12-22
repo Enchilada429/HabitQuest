@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (closeModalButton) {
     closeModalButton.addEventListener("click", function () {
-      modalContainer.classList.remove("show")
-    });
+      modalContainer.classList.remove("click")
+    })
   }
 
 });
