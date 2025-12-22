@@ -18,7 +18,7 @@ def get_mongodb_client(config: _Environ) -> MongoClient:
     )
 
 
-def get_hashed_password(password: str) -> str:
+def get_hashed_password(password: str) -> bytes:
     """Returns a hashed password from a given password."""
     return hashpw(bytes(password, "utf-8"), gensalt())
 
@@ -117,6 +117,25 @@ def delete_habit(mongodb_client: MongoClient, habit_id: str) -> dict:
     return deleted
 
 
+def validate_user(mongodb_client: MongoClient, email: str, password: str) -> dict:
+    """Checks whether email and password match any accounts in database.
+    Returns account if successful."""
+
+    account_collection = mongodb_client["HabitQuest"]["account"]
+
+    account = account_collection.find_one({"email": email})
+
+    if account is None:
+        raise ValueError("Email does not exist in account database.")
+
+    valid = checkpw(bytes(password, "utf-8"), account["password"])
+
+    if not valid:
+        raise ValueError("Given password does not match account password.")
+
+    return account
+
+
 if __name__ == "__main__":
     load_dotenv()
 
@@ -124,4 +143,4 @@ if __name__ == "__main__":
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
 
-    print(delete_account(client, "69495e0c4683ee94e55e3d45"))
+    print(validate_user(client, "anotherexample@gmail.com", "yahya"))
