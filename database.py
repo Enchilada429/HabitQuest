@@ -35,6 +35,19 @@ def get_id_using_email(mongodb_client: MongoClient, email: str) -> str:
     return None
 
 
+def get_habits(mongodb_client: MongoClient, email: str) -> list[dict]:
+    """Returns a list of habits for a user via their email."""
+
+    account_id = get_id_using_email(mongodb_client, email)
+
+    if not account_id:
+        raise ValueError("Email does not link to a valid account.")
+
+    habit_collection = mongodb_client["HabitQuest"]["habit"]
+
+    return [habit for habit in habit_collection.find({"account_id": account_id})]
+
+
 def create_account(mongodb_client: MongoClient, email: str, password: str, display_name: str) -> None:
     """Create a HabitQuest account with username, password, and email. Hashes the password.
     Returns error if email has invalid format."""
@@ -81,4 +94,4 @@ if __name__ == "__main__":
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
 
-    create_habit(client, "Farting in public", "bad", "seven@gmail.com")
+    print(get_habits(client, "seven@gmail.com"))
