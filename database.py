@@ -177,6 +177,23 @@ def delete_habit(habit_id: str) -> dict:
         return deleted
 
 
+def delete_wishlist_entry(entry_id: str) -> dict:
+    """Deletes a wishlist entry in the database using its id as a string.
+    Returns the deleted entry."""
+
+    with get_mongodb_client(ENV) as client:
+
+        wishlist_collection = client["HabitQuest"]["wishlist"]
+
+        deleted = wishlist_collection.find_one_and_delete(
+            {"_id": ObjectId(entry_id)})
+
+        if not deleted:
+            raise ValueError("Invalid habit ID.")
+
+        return deleted
+
+
 def validate_user(email: str, password: str) -> dict:
     """Checks whether email and password match any accounts in database.
     Returns account if successful."""
