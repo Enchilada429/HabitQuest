@@ -33,6 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
       habit_name = document.getElementById("goodHabit").value;
       
       if (!habit_name) return;
+      const goodTable = document.getElementById("goodTable");
+      const row = goodTable.insertRow(-1);
+      const cell1 = row.insertCell(0);
+      cell1.textContent = habit_name;
+      const cell2 = row.insertCell(1);
+      cell2.innerHTML = `
+      <button type="button" class="btn btn-light btn-sm">-</button>
+      <span>0</span>
+      <button type="button" class="btn btn-light btn-sm">+</button>
+      `;
 
       fetch("/addHabit", {
         method: "POST",
@@ -72,6 +82,16 @@ document.addEventListener("DOMContentLoaded", function () {
       habit_name = document.getElementById("badHabit").value;
       
       if (!habit_name) return;
+      const badTable = document.getElementById("badTable");
+      const row = badTable.insertRow(-1);
+      const cell1 = row.insertCell(0);
+      cell1.textContent = habit_name;
+      const cell2 = row.insertCell(1);
+      cell2.innerHTML = `
+      <button type="button" class="btn btn-light btn-sm">-</button>
+      <span>0</span>
+      <button type="button" class="btn btn-light btn-sm">+</button>
+      `;
 
       fetch("/addHabit?habit_type=bad", {
         method: "POST",
