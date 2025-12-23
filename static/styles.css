@@ -8,7 +8,7 @@
     --text-color: #4f6d7a
 }
 
-#heroSection {
+.hero {
     background: var(--primary-color);
     color: var(--text-color)
 }

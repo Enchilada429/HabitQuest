@@ -20,7 +20,7 @@
   <!-- Navigation: The bar at the top of the page -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">HackathonStarter</a>
+      <a class="navbar-brand" href="#">Habit Quest</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,13 +41,16 @@
   </nav>
 
   <!-- Hero Section: A large, prominent section at the top of the page -->
-  <section class="hero bg-primary text-white text-center py-5">
+  <section class="hero bg-custom custom-text text-center py-5">
     <div class="container">
-      <h1 class="display-4 fw-bold">Welcome to Your Site</h1>
-      <p class="lead">Build something amazing</p>
+      <h1 class="display-4 fw-bold">Welcome to Habit Quest</h1>
+      <p class="lead">Grow Progress, Shrink Setbacks</p>
       <!-- id="cta-button" allows us to find this button in script.js -->
-      <button class="btn btn-light btn-lg" id="cta-button">
-        Get Started
+      <button class="btn btn-light" id="signUpButton">
+        Sign Up
+      </button>
+      <button class="btn btn-dark" id="loginButton">
+        Login
       </button>
     </div>
   </section>
@@ -55,38 +58,12 @@
   <!-- Main Content: The primary information on your page -->
   <main class="py-5">
     <div class="container">
-      <!-- row and col-md-4 are Bootstrap classes for creating a grid layout -->
-      <div class="row g-4">
-        <!-- Each col-md-4 takes up 4 out of 12 columns (1/3 of the width) -->
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Feature One</h5>
-              <p class="card-text">
-                Description of your first feature goes here.
-              </p>
-            </div>
-          </div>
+      <div class="row align-items-start">
+        <div class="col">
+          <img src="{{ url_for('static', filename='images/good-habit-image.jpg') }}" alt="good habit picture here" class="img-fluid w-100">
         </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Feature Two</h5>
-              <p class="card-text">
-                Description of your second feature goes here.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Feature Three</h5>
-              <p class="card-text">
-                Description of your third feature goes here.
-              </p>
-            </div>
-          </div>
+        <div class="col">
+          <img src="{{ url_for('static', filename='images/bad-habit-image.jpg') }}" alt="bad habit picture here" class="img-fluid w-100">
         </div>
       </div>
     </div>
@@ -95,7 +72,7 @@
   <!-- Footer: Information at the bottom of the page -->
   <footer class="bg-dark text-white text-center py-4 mt-5">
     <div class="container">
-      <p>&copy; 2025 Hackathon Starter. All rights reserved.</p>
+      <p>&copy; 2025 Habit Quest. All rights reserved.</p>
     </div>
   </footer>
 
