@@ -34,6 +34,25 @@ footer {
     width: 100%
 }
 
+.forms {
+    margin: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.input-fields {
+    width: 300px;
+    margin: 10px;
+}
+
+#passwordLabel {
+    margin-top: 30px;
+}
+
+#submitLoginButton {
+    width: 100px;
+}
+
 .tables th, .tables td {
     color: var(--text-color);
     background: var(--page-color);

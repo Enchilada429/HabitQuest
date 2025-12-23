@@ -53,11 +53,21 @@
   <main class="py-5">
     <div class="container">
       <div class="row align-items-start">
-        <div class="col">
-          <img src="{{ url_for('static', filename='images/good-habit-image.jpg') }}" alt="good habit picture here" class="img-fluid w-100">
+        <form class="forms">
+            <label for="email">Enter email:</label><br>
+            <input type="text" id="email" name="email" class="input-fields"><br>
+            <label for="password" id="passwordLabel">Enter password:</label><br>
+            <input type="text" id="password" name="password" class="input-fields">
+        </form>
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary" id="submitLoginButton">
+                Submit
+            </button>
         </div>
-        <div class="col">
-          <img src="{{ url_for('static', filename='images/bad-habit-image.jpg') }}" alt="bad habit picture here" class="img-fluid w-100">
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn" id="forgotPassworButton">
+                Forgot password?
+            </button>
         </div>
       </div>
     </div>
