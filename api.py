@@ -25,6 +25,14 @@ def habits():
     return 'Error 405: Method not allowed'
 
 
+@app.route('/wishlist', methods=['GET'])
+def wishlist():
+    if request.method == 'GET':
+        return render_template('wishlist.html')
+
+    return 'Error 405: Method not allowed'
+
+
 @app.route("/goodHabits/<email>", methods=["GET"])
 def get_good_habits(email):
     """Gets a list of good habits for the account associated with the email."""
