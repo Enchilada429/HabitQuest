@@ -46,12 +46,19 @@
       <h1 class="display-4 fw-bold">Welcome to Habit Quest</h1>
       <p class="lead">Grow Progress, Shrink Setbacks</p>
       <!-- id="cta-button" allows us to find this button in script.js -->
-      <button class="btn btn-light" id="signUpButton">
-        Sign Up
-      </button>
-      <button class="btn btn-dark" id="loginButton">
-        Login
-      </button>
+      <div class="container">
+        <div class="d-flex justify-content-center gap-4 mt-4">
+          <form action="{{ url_for('login') }}">
+            <button class="btn btn-dark" id="loginButton">
+              Login
+            </button>
+          </form>
+          <form action="{{ url_for('signup') }}">
+            <button class="btn btn-light" id="signUpButton">
+              Sign Up
+            </button>
+          </form>
+        </div>
     </div>
   </section>
 
