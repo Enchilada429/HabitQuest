@@ -31,8 +31,7 @@ def addGoodHabit():
     habit_name = data['habit_name']
     email = data["email"]
 
-    new_habit = create_habit(get_mongodb_client(ENV),
-                             habit_name, "good", email)
+    new_habit = create_habit(habit_name, "good", email)
 
     return jsonify(new_habit)
 
@@ -44,8 +43,7 @@ def addBadHabit():
     habit_name = data['habit_name']
     email = data["email"]
 
-    new_habit = create_habit(get_mongodb_client(ENV),
-                             habit_name, "bad", email)
+    new_habit = create_habit(habit_name, "bad", email)
 
     return jsonify(new_habit)
 
