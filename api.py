@@ -1,5 +1,12 @@
 """Flask REST API"""
+
+from os import environ as ENV
+
 from flask import Flask, render_template, request, jsonify
+
+from dotenv import load_dotenv
+
+from database import get_mongodb_client, create_habit
 
 app = Flask(__name__)
 
@@ -19,24 +26,28 @@ def habits():
 
 @app.route('/addGoodHabit', methods=['POST'])
 def addGoodHabit():
-    """adds habit_name to database"""
+    """Adds new good habit to database"""
     data = request.get_json()
     habit_name = data['habit_name']
-    # Save to DB
-    return jsonify({
-        'habit_name': habit_name
-    })
+    email = data["email"]
+
+    new_habit = create_habit(get_mongodb_client(ENV),
+                             habit_name, "good", email)
+
+    return jsonify(new_habit)
 
 
 @app.route('/addBadHabit', methods=['POST'])
 def addBadHabit():
-    """adds habit_name to database"""
+    """Adds new bad habit to database"""
     data = request.get_json()
     habit_name = data['habit_name']
-    # Save to DB
-    return jsonify({
-        'habit_name': habit_name
-    })
+    email = data["email"]
+
+    new_habit = create_habit(get_mongodb_client(ENV),
+                             habit_name, "bad", email)
+
+    return jsonify(new_habit)
 
 
 @app.route('/test/<int:number>', methods=['POST'])
@@ -46,4 +57,7 @@ def test(number):
 
 
 if __name__ == "__main__":
+
+    load_dotenv()
+
     app.run(debug=True)

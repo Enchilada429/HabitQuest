@@ -58,9 +58,9 @@ def get_habits(mongodb_client: MongoClient, email: str) -> list[dict]:
     return [habit for habit in habit_collection.find({"account_id": account["_id"]})]
 
 
-def create_account(mongodb_client: MongoClient, email: str, password: str, display_name: str) -> None:
+def create_account(mongodb_client: MongoClient, email: str, password: str, display_name: str) -> dict:
     """Create a HabitQuest account with username, password, and email. Hashes the password.
-    Returns error if email has invalid format."""
+    Returns new account details as dict. Returns error if email has invalid format."""
 
     if not match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", email):
         raise ValueError("Email has invalid format.")
@@ -71,15 +71,20 @@ def create_account(mongodb_client: MongoClient, email: str, password: str, displ
     if get_account_using_email(client, email):
         raise ValueError("Email already exists.")
 
-    account_collection.insert_one({
+    account_data = {
         "email": email,
         "password": get_hashed_password(password),
         "displayname": display_name
-    })
+    }
+
+    account_collection.insert_one(account_data)
+
+    return account_data
 
 
-def create_habit(mongodb_client: MongoClient, description: str, habit_type: str, email: str) -> None:
-    """Create a single habit with description, whether it is a good or bad habit, and the email to link it to."""
+def create_habit(mongodb_client: MongoClient, habit_name: str, habit_type: str, email: str) -> dict:
+    """Create a single habit with name, whether it is a good or bad habit, and the email to link it to.
+    Returns the habit in dict format."""
 
     account = get_account_using_email(mongodb_client, email)
 
@@ -90,11 +95,15 @@ def create_habit(mongodb_client: MongoClient, description: str, habit_type: str,
 
     habit_collection = mongodb_client["HabitQuest"]["habit"]
 
-    habit_collection.insert_one({
-        "description": description,
+    habit_data = {
+        "habit_name": habit_name,
         "habit_type": habit_type.lower(),
         "account_id": account["_id"]
-    })
+    }
+
+    habit_collection.insert_one(habit_data)
+
+    return habit_data
 
 
 def delete_account(mongodb_client: MongoClient, account_id: str) -> dict:
