@@ -48,7 +48,7 @@ def get_bad_habits(email):
     try:
         return [habit for habit in get_habits(email) if habit["habit_type"] == "bad"]
     except ValueError as e:
-        return {"error": e}
+        return {"error": True, "message": str(e)}
 
 
 @app.route("/addHabit", methods=["POST"])
@@ -62,6 +62,15 @@ def add_habit():
     new_habit = create_habit(habit_name, habit_type, DEFAULT_EMAIL)
 
     return jsonify(new_habit)
+
+
+@app.route("/deleteHabit<id>", methods=["POST"])
+def delete_habit(id):
+    """Deletes habit from database using its id."""
+    try:
+        return delete_habit(id)
+    except ValueError as e:
+        return {"error": True, "message": str(e)}
 
 
 @app.route('/test/<int:number>', methods=['POST'])
