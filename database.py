@@ -113,7 +113,7 @@ def create_habit(habit_name: str, habit_type: str, email: str) -> dict:
 
         habit_collection.insert_one(habit_data)
 
-        return habit_data
+        return {key: str(value) for (key, value) in habit_data.items()}
 
 
 def delete_account(account_id: str) -> dict:
