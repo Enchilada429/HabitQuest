@@ -41,6 +41,14 @@ def login():
     return 'Error 405: Method not allowed'
 
 
+@app.route('/forgotpassword', methods=['GET'])
+def forgotpassword():
+    if request.method == 'GET':
+        return render_template('forgotpassword.html')
+
+    return 'Error 405: Method not allowed'
+
+
 @app.route('/signup', methods=['GET'])
 def signup():
     if request.method == 'GET':
