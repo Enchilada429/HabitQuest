@@ -114,12 +114,24 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   }
 
-  let email = document.forms['signupForm']['email'].value
-  let password = document.forms['signupForm']['password'].value
+  let email = document.forms['signupForm']['email'].value;
+  let password = document.forms['signupForm']['password'].value;
+
   fetch('signup/createAccount', {
-    'email': email,
-    'password': password
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: "{'email': email, 'password': password}"
   })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
 
 
 
