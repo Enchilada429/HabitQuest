@@ -1,10 +1,13 @@
 """Flask REST API"""
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 
 from dotenv import load_dotenv
 
-from database import create_habit, get_habits, create_wishlist_entry, delete_wishlist_entry, increment_habit_points, decrement_habit_points
+from database import (create_habit, get_habits,
+                      create_wishlist_entry, delete_wishlist_entry,
+                      increment_habit_points, decrement_habit_points,
+                      get_habit_by_name_email, create_account)
 
 app = Flask(__name__)
 
@@ -57,6 +60,13 @@ def signup():
     return 'Error 405: Method not allowed'
 
 
+@app.route('/signup/createAccount', methods=["POST"])
+def create_new_account():
+    data = request.get_json()
+    return create_account(data['email'], data['password'], 'Test')
+
+
+@app.route
 @app.route("/goodHabits/<email>", methods=["GET"])
 def get_good_habits(email):
     """Gets a list of good habits for the account associated with the email."""
@@ -128,18 +138,19 @@ def delete_single_wishlist_entry(id):
         return {"error": True, "message": str(e)}
 
 
-@app.route("/incrementPoints/<habitid>", methods=["POST"])
-def increment_points(habitid):
+@app.route("/incrementPoints/<habitname>", methods=["POST"])
+def increment_points(habitname):
     if request.method == "POST":
-        return increment_habit_points(habitid)
+        return increment_habit_points(habitname)
 
     return {"error": True, "message": "405 method not allowed"}
 
 
-@app.route("/decrementPoints/<habitid>", methods=["POST"])
-def decrement_points(habitid):
+@app.route("/decrementPoints/<habitname>", methods=["POST"])
+def decrement_points(habitname):
     if request.method == "POST":
-        return decrement_habit_points(habitid)
+        habit_id = get_habit_by_name_email(habitname, email)
+        return decrement_habit_points(habitname)
 
     return {"error": True, "message": "405 method not allowed"}
 

@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Welcome! This is your starting point.");
     });
   }
-
+  
   const addGoodHabitButton = document.getElementById("addGoodHabit");
   const goodHabitModal = document.getElementById("goodHabitModal");
   const saveGoodModalButton = document.getElementById("saveGoodModal")
@@ -113,5 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
       badHabitModal.classList.remove("open")
     })
   }
+
+  let email = document.forms['signupForm']['email'].value
+  let password = document.forms['signupForm']['password'].value
+  fetch('signup/createAccount', {
+    'email': email,
+    'password': password
+  })
+
+
 
 });

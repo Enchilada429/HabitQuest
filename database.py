@@ -50,6 +50,20 @@ def get_habit(habit_id: str) -> dict:
         return habit
 
 
+def get_habit_by_name_email(habit_name: str, email: str) -> dict:
+    with get_mongodb_client(ENV) as client:
+
+        habit_collection = client["HabitQuest"]["habit"]
+        accountid = get_account_using_email(email)["account_id"]
+        habit = habit_collection.find_one(
+            {"habit_name": habit_name, "account_id": ObjectId(accountid)})
+
+        if not habit:
+            return {"error": True, "message": "Habit not found by name for this email"}
+
+        return habit
+
+
 def get_habits(email: str) -> list[dict]:
     """Returns a list of habits for a user via their email."""
 
